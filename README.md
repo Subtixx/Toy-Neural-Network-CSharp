@@ -3,7 +3,8 @@ This is a C# copy of the [Neural Network JavaScript library for Coding Train tut
 
 # Doodle Classification Example
 
-[![](https://i.imgur.com/QCbGHich.jpg)](https://i.imgur.com/QCbGHic.png)
+![image](https://user-images.githubusercontent.com/20743379/39099840-fe8fd554-4680-11e8-9b05-5a9a5f5f5658.png)
+![image](https://user-images.githubusercontent.com/20743379/39099847-1fb9386a-4681-11e8-9ffb-589e6a36fee5.png)
 
 # TODO
 
