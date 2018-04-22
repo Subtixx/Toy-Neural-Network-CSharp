@@ -125,6 +125,15 @@ namespace DoodleClassification
             this._comboBox.Items.Add("Train");
             this._comboBox.Items.Add("Rainbow");
             this._comboBox.SelectedIndex = 0;
+            
+            this._toolTip = new System.Windows.Forms.ToolTip();
+            this._toolTip.SetToolTip(this._trainButton, "This trains the currently displayed image");
+            this._toolTip.SetToolTip(this._trainAllButton, "This trains all images in the training data");
+            this._toolTip.SetToolTip(this._comboBox, "This is the category your doodle is in");
+            this._toolTip.SetToolTip(this._testButton, "This will test the currently displayed image");
+            this._toolTip.SetToolTip(this._testAllButton, "This will train all images in the test data");
+            this._toolTip.SetToolTip(this._epochTrainNum, "This specifies how many epochs should be trained");
+            this._toolTip.SetToolTip(this._doodleSelectNum, "This specifies what doodle to display, train and test");
                 
             this.Controls.Add(this._pictureBoxSmall);
             this.Controls.Add(this._pictureBox);
@@ -159,6 +168,7 @@ namespace DoodleClassification
         private System.Windows.Forms.NumericUpDown _doodleSelectNum;
         private System.Windows.Forms.NumericUpDown _epochTrainNum;
         private System.Windows.Forms.ComboBox _comboBox;
+        private System.Windows.Forms.ToolTip _toolTip;
 
         private DrawControl _drawControl;
     }
