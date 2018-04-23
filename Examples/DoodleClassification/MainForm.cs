@@ -20,6 +20,8 @@ namespace DoodleClassification
 
         public Doodle[] TrainingSet;
 
+        private VisualizerForm _visualizerForm;
+
         public MainForm()
         {
             InitializeComponent();
@@ -55,6 +57,9 @@ namespace DoodleClassification
 
             _doodleSelectNum.Maximum = TestingSet.Length;
             DisplayDoodle(TestingSet[0].Data);
+            
+            _visualizerForm = new VisualizerForm();
+            _visualizerForm.Update(_neuralNetwork);
         }
 
         private void MainForm_Closing(object sender, CancelEventArgs e)
@@ -74,30 +79,30 @@ namespace DoodleClassification
             targets[(int) data.Label] = 1;
 
             _neuralNetwork.Train(inputs, targets);
+            
+            _visualizerForm.Update(_neuralNetwork);
         }
         
         private void TrainAllButton_Click(object sender, EventArgs e)
         {
-            _epochTrainNum.Enabled = false;
-            _trainButton.Enabled = false;
-            _testButton.Enabled = false;
-            _testAllButton.Enabled = false;
-            _testDoodleButton.Enabled = false;
+            ToggleControls();
+            
             Task.Run(() =>
             {
                 for (var i = 0; i < _epochTrainNum.Value; i++)
                 {
                     TrainEpoch(TrainingSet);
-                    Invoke((MethodInvoker) delegate { Text = $"ToyNN - Epoch: {_neuralNetwork.Epoch}"; });
+                    Invoke((MethodInvoker) delegate
+                    {
+                        Text = $"ToyNN - Epoch: {_neuralNetwork.Epoch}";
+                        _visualizerForm.Update(_neuralNetwork);
+                    });
                 }
+
+                ToggleControls(true);
 
                 Invoke((MethodInvoker) delegate
                 {
-                    _testDoodleButton.Enabled = true;
-                    _epochTrainNum.Enabled = true;
-                    _trainButton.Enabled = true;
-                    _testButton.Enabled = true;
-                    _testAllButton.Enabled = true;
                     Text = $"ToyNN - Epoch: {_neuralNetwork.Epoch}";
                 });
             });
@@ -123,11 +128,8 @@ namespace DoodleClassification
 
         private void TestAllButton_Click(object sender, EventArgs e)
         {
-            _epochTrainNum.Enabled = false;
-            _trainButton.Enabled = false;
-            _testButton.Enabled = false;
-            _testAllButton.Enabled = false;
-            _testDoodleButton.Enabled = false;
+            ToggleControls();
+            
             Task.Run(() =>
             {
                 var oldSelected = TestingSet[(int) _doodleSelectNum.Value];
@@ -136,15 +138,13 @@ namespace DoodleClassification
 
                 var percentage = TestAll(TestingSet);
                 _lastPrediction = percentage;
+
+                ToggleControls(true);
+                
                 Invoke((MethodInvoker) delegate
                 {
                     _doodleSelectNum.Value = idx;
-
-                    _testDoodleButton.Enabled = true;
-                    _epochTrainNum.Enabled = true;
-                    _trainButton.Enabled = true;
-                    _testButton.Enabled = true;
-                    _testAllButton.Enabled = true;
+                    
                     Text = $"ToyNN - Epoch: {_neuralNetwork.Epoch} ({_lastPrediction:F2}%)";
                 });
             });
@@ -204,6 +204,8 @@ namespace DoodleClassification
             targets[(int) label] = 1;
 
             _neuralNetwork.Train(inputs, targets);
+            
+            _visualizerForm.Update(_neuralNetwork);
         }
 
         private void DoodleSelectNum_Changed(object sender, EventArgs e)
@@ -306,6 +308,33 @@ namespace DoodleClassification
 
             _pictureBox.Image = bmp;
             _pictureBoxSmall.Image = bmp;
+        }
+
+        private void ToggleControls(bool enabled = false)
+        {
+            Invoke((MethodInvoker) delegate
+            {
+                _testDoodleButton.Enabled = enabled;
+                _trainDoodleButton.Enabled = enabled;
+                _epochTrainNum.Enabled = enabled;
+                _trainButton.Enabled = enabled;
+                _trainAllButton.Enabled = enabled;
+                _testButton.Enabled = enabled;
+                _testAllButton.Enabled = enabled;
+            });
+        }
+
+        private void OnVisualizeButton_Click(object sender, EventArgs e)
+        {
+            if (!_visualizerForm.Visible)
+            {
+                _visualizerForm.Update(_neuralNetwork);
+                _visualizerForm.Show();
+            }
+            else
+            {
+                _visualizerForm.Hide();
+            }
         }
     }
 }

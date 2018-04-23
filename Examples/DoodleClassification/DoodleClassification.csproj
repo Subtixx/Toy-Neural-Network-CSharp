@@ -45,9 +45,12 @@
     <Compile Include="InterpolatingPictureBox.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs" />
+    <Compile Include="NeuralNetworkVisualizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="VisualizerForm.cs" />
+    <Compile Include="VisualizerForm.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ToyNN\ToyNN.csproj">

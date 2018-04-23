@@ -461,24 +461,5 @@ namespace ToyNN.Tests
                 new[] {5.0f}
             }, mTranspose._data);
         }
-
-        /*
-test('transpose matrix - (1, 5) to (5, 1)', () => {
-  let m = new Matrix(1, 5);
-  m.data[0] = [1, 2, 3, 4, 5]
-  let mt = Matrix.transpose(m);
-  expect(mt).toEqual({
-    rows: 5,
-    cols: 1,
-    data: [
-      [1],
-      [2],
-      [3],
-      [4],
-      [5]
-    ]
-  })
-})
-         */
     }
 }

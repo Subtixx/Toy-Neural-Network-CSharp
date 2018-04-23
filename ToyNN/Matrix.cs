@@ -25,6 +25,10 @@ namespace ToyNN
             }
         }
 
+        public int Columns => _cols;
+        public int Rows => _rows;
+        public float[][] Data => _data;
+
         public Matrix Copy()
         {
             var m = new Matrix(_rows, _cols);

@@ -134,6 +134,13 @@ namespace DoodleClassification
             this._toolTip.SetToolTip(this._testAllButton, "This will train all images in the test data");
             this._toolTip.SetToolTip(this._epochTrainNum, "This specifies how many epochs should be trained");
             this._toolTip.SetToolTip(this._doodleSelectNum, "This specifies what doodle to display, train and test");
+            
+            // Yes I've run out of space sadly haha.
+            this._visualizeButton = new System.Windows.Forms.Button();
+            this._visualizeButton.Location = new System.Drawing.Point(270, 10);
+            this._visualizeButton.Size = new System.Drawing.Size(40, 50);
+            this._visualizeButton.Text = "Visualize";
+            this._visualizeButton.Click += OnVisualizeButton_Click;
                 
             this.Controls.Add(this._pictureBoxSmall);
             this.Controls.Add(this._pictureBox);
@@ -149,6 +156,7 @@ namespace DoodleClassification
             this.Controls.Add(this._epochTrainNum);
             this.Controls.Add(this._drawControl);
             this.Controls.Add(this._clearDoodleButton);
+            this.Controls.Add(this._visualizeButton);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -165,6 +173,7 @@ namespace DoodleClassification
         private System.Windows.Forms.Button _trainDoodleButton;
         private System.Windows.Forms.Button _clearDoodleButton;
         private System.Windows.Forms.Button _testAllButton;
+        private System.Windows.Forms.Button _visualizeButton;
         private System.Windows.Forms.NumericUpDown _doodleSelectNum;
         private System.Windows.Forms.NumericUpDown _epochTrainNum;
         private System.Windows.Forms.ComboBox _comboBox;
